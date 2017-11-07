@@ -6,10 +6,17 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
-    jcenter()
-//    mavenCentral()
+//    jcenter()
+    mavenCentral()
 }
 
 dependencies {
+    compile ''
     testCompile 'junit:junit:4.12'
+}
+
+task Wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
