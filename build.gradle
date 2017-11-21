@@ -10,10 +10,17 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    testCompile.extendsFrom compileOnly
+}
+
 dependencies {
-//    compile ''
+//    compile 'io.vavr:vavr:+'
     compileOnly 'org.projectlombok:lombok:+',
             'edu.washington.cs.types.checker:checker-framework:+'
+
+    runtime 'com.h2database:h2:+'
+
     testCompile 'junit:junit:4.12'
 }
 
