@@ -50,11 +50,9 @@ public class HWJdbcTest {
     @SneakyThrows
     public void name() {
 
-        JdbcDao jdbcDao = () -> DriverManager.getConnection(
-                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
-                "", "");
-
-        executeSql(fromFile("h2.sql"));
+        JdbcDao jdbcDao = new ConnectionPool(
+                "jdbc",
+                "h2");
 
         jdbcDao.withResultSet("SELECT first_name, last_name FROM Person",
                 rs -> {

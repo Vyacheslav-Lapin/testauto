@@ -1,11 +1,18 @@
 package com.epam.trainings.testauto.jdbc;
 
+import lombok.SneakyThrows;
 import lombok.val;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @FunctionalInterface
 public interface JdbcDao extends CheckedSupplier<Connection> {
@@ -60,4 +67,21 @@ public interface JdbcDao extends CheckedSupplier<Connection> {
             }
         });
     }
+
+    @SneakyThrows
+    default String getInitSql(String name) {
+        try (val scanner = new Scanner(getClass().getResourceAsStream(name))
+                .useDelimiter(System.lineSeparator());
+             Stream<String> lines = StreamSupport.stream(
+                     Spliterators.spliteratorUnknownSize(scanner, Spliterator.ORDERED), false)) {
+
+            return lines.collect(Collectors.joining());
+        }
+    }
+
+    default void executeSql(String resourceName) {
+        String sql = getInitSql(resourceName);
+        withStatement(statement -> statement.execute(sql));
+    }
+
 }
