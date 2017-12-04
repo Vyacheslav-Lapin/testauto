@@ -1,8 +1,9 @@
 package com.epam.trainings.testauto.oop;
 
 public class VarArgs {
-
-    public static void main(String... args) {
+    // ((\w+\s)+)(\w+)\(([\w\.\s]+)\)\s\{
+    // $1strictfp $3($4) {
+    public static strictfp void main(String... args) {
         if (args.length > 0)
             return;
 
