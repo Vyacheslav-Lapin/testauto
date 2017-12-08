@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.epam.tc.com/notes"
+              xmlns:tns="http://www.epam.tc.com/notes"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+        elementFormDefault="qualified">
+
+    <element name="notes">
+        <complexType>
+            <sequence>
+                <element name="note" type="tns:Note" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Note">
+        <sequence>
+            <element name="to" type="string"/>
+            <element name="сustomer-location" type="string" fixed="UK"/>
+            <element name="from" type="string"/>
+            <element name="heading" type="string"/>
+            <element name="body" type="string"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+    </complexType>
+
+</schema>
