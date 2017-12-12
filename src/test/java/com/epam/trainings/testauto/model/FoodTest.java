@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -46,14 +47,19 @@ public class FoodTest {
                 //Marshall
                 jaxbContext.createMarshaller().marshal(food, writer);
 
-                assertThat(XML, is(writer.toString()));
+                String value = writer.toString();
+                assertThat(XML, is(value));
+
+                System.out.println(value);
 
                 //Unmarshall
-                try (StringReader reader = new StringReader(writer.toString())) {
+                try (StringReader reader = new StringReader(value)) {
                     val food2 = (Food) jaxbContext.createUnmarshaller()
                             .unmarshal(reader);
 
-                    assertThat(ACTUAL, is(food2.toString()));
+                    String value1 = food2.toString();
+                    System.out.println(value1);
+                    assertThat(ACTUAL, is(value1));
                     assertEquals(food, food2);
                 }
             } catch (IOException | JAXBException e) {
