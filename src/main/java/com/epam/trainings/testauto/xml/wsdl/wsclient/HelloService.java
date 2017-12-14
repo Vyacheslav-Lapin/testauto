@@ -11,7 +11,9 @@ import java.net.URL;
  * JAX-WS RI 2.2.9-b130926.1035
  * Generated source version: 2.2
  */
-@WebServiceClient(name = "HelloService", targetNamespace = "http://wsdl.xml.testauto.trainings.epam.com/", wsdlLocation = "http://localhost:1212/hello?wsdl")
+@WebServiceClient(name = "HelloService",
+        targetNamespace = "http://wsdl.xml.testauto.trainings.epam.com/",
+        wsdlLocation = "http://localhost:1212/hello?wsdl")
 public class HelloService extends Service {
 
     private final static URL HELLOSERVICE_WSDL_LOCATION;
