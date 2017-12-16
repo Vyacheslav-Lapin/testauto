@@ -26,13 +26,13 @@ public class HttpServer {
                 System.out.println("Follow the white rabbit: http://localhost:" + PORT + "/");
                 Socket s = ss.accept();
                 log.info("Client accepted");
-                new Thread(new SocketProcessor(s)).start();
+                new Thread(new RequestMapper(s)).start();
             }
         }
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    private static class SocketProcessor implements Runnable {
+    private static class RequestMapper implements Runnable {
 
         private static final ObjectWriter OBJECT_WRITER = new ObjectMapper()
                 .writer()
@@ -42,8 +42,7 @@ public class HttpServer {
         private InputStream is;
         private OutputStream os;
 
-//        @SneakyThrows
-        private SocketProcessor(Socket s) throws IOException {
+        private RequestMapper(Socket s) throws IOException {
             this(s, s.getInputStream(), s.getOutputStream());
         }
 
@@ -53,11 +52,7 @@ public class HttpServer {
             try {
                 readInputHeaders();
 
-                //language=HTML
-//                writeResponse("<html><body><h1>Hello from Habrahabr</h1></body></html>");
-
-                String s = OBJECT_WRITER.writeValueAsString(new Point(876, 2));
-                writeResponse(s);
+                writeResponse(OBJECT_WRITER.writeValueAsString(new Point(876, 2)));
 
             } finally {
                 try {

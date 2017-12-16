@@ -55,7 +55,7 @@ public class ConnectionPool implements JdbcDao, Closeable {
     }
 
     @Override
-    public Connection checkedGet() throws Throwable {
+    public Connection call() throws Exception {
         if (isClosed)
             throw new IOException();
         return connectionBlockingQueue.take();
