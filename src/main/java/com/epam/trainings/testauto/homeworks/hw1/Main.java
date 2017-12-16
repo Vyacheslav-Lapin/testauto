@@ -19,7 +19,7 @@ public class Main {
                 new InputStreamReader(
                         System.in))) {
 
-            userIn = reader::readLine;
+            userIn = () -> reader.readLine().trim();
 
             Collection<Class<? extends Animal>> zooClasses = getZooClasses();
 
